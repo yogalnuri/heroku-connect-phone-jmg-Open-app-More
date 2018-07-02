@@ -13,6 +13,7 @@ app.post('/update', function(req, res) {
     var newContact = req.body;
     console.log('Name Param-->>'+req.body.name);
     console.log('Base Url-->'+req.baseUrl);
+    console.log('Request Body-->'+req.body);
     if (!req.body.name) {
         handleError(res, "Invalid user input", "Must provide a name.", 400);
     }
