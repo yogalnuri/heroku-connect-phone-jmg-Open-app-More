@@ -10,10 +10,13 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 
 app.post('/update', function(req, res) {
-    var newContact = req.body;
-    console.log('Name Param-->>'+req.body.name);
-    console.log('Base Url-->'+req.body.path);
-    if (!req.body.name) {
+    if (!req.body.maquina) {
+        handleError(res, "Invalid user input", "Must provide a name.", 400);
+    }
+    if (!req.body.status) {
+        handleError(res, "Invalid user input", "Must provide a name.", 400);
+    }
+    if (!req.body.origin) {
         handleError(res, "Invalid user input", "Must provide a name.", 400);
     }
     res.status(400).json({error: "err.message"});
