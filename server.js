@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 
 app.post('/update', function(req, res) {
     var newContact = req.body;
+    console.log('Name Param-->>'+req.body.name);
     if (!req.body.name) {
         handleError(res, "Invalid user input", "Must provide a name.", 400);
     }
