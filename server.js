@@ -13,7 +13,7 @@ app.post('/update', function(req, res) {
     pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
         // watch for any connect issues
         console.log("Start Request"+req.params.phone);
-        if (err) console.log("Primer error"+err);
+        /*if (err) console.log("Primer error"+err);
         conn.query(
             'UPDATE salesforce.Contact SET Phone = $1, MobilePhone = $1 WHERE LOWER(FirstName) = LOWER($2) AND LOWER(LastName) = LOWER($3) AND LOWER(Email) = LOWER($4)',
             [req.body.phone.trim(), req.body.firstName.trim(), req.body.lastName.trim(), req.body.email.trim()],
@@ -38,7 +38,7 @@ app.post('/update', function(req, res) {
                     res.json(result);
                 }
             }
-        );
+        );*/
     });
 });
 
