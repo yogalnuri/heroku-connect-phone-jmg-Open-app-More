@@ -46,7 +46,10 @@ app.post('/update', function(req, res) {
         );
     });*/
 });
-
+function handleError(res, reason, message, code) {
+  console.log("ERROR: " + reason);
+  res.status(code || 500).json({"error": message});
+}
 app.listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
