@@ -12,14 +12,14 @@ app.use(bodyParser.json());
 app.post('/update', function(req, res) {
     if (!req.body.maquina) {
         handleError(res, "Invalid user input", "Must provide a name.", 400);
-    }
-    if (!req.body.status) {
+    }else if (!req.body.status) {
         handleError(res, "Invalid user input", "Must provide a name.", 400);
-    }
-    if (!req.body.origin) {
+    } if (!req.body.origin) {
         handleError(res, "Invalid user input", "Must provide a name.", 400);
+    }else{
+        res.status(400).json({message: "Datos Correctos"});
     }
-    res.status(400).json({error: "err.message"});
+
     /*pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
         // watch for any connect issues
         console.log("Start Request"+req.params.phone);
