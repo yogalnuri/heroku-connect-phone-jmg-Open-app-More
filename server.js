@@ -21,9 +21,18 @@ app.post('/update', function(req, res) {
     }else{
         pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
             // watch for any connect issues
-            conn.query('select Account__c, Name from salesforce.Maquina__c where Name=$1', [req.body.maquina], function(err, results){
+            conn.query('select Account__c, Name, Id from salesforce.Maquina__c where Name=$1', [req.body.maquina], function(err, results){
                     if(err===null || err===undefined){
                         res.json({"records":results.rows[0].account__c, "origen":req.body.maquina})
+                        conn.query("Insert into salesforce.Case (Account, Maquina__c, Status, Origin, Subject) Values($1,$2,$3,$4)",
+                                    [results.rows[0].account__c,results.rows[0].Id,req.body.status,req.body.origin,req.body.subject ],
+                                    function(error, resultado){
+                                        if(error===null || error===undefined){
+                                            res.json()
+                                        }else{
+                                             res.status(code || 500).json({"error": error});
+                                        }
+                                    });
                     }else{
                         handleError(res, "Error query", err.message, 400);
                     }
