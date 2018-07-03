@@ -23,7 +23,7 @@ app.post('/update', function(req, res) {
             // watch for any connect issues
             conn.query('select Account__c, Name, Id from salesforce.Maquina__c where Name=$1', [req.body.maquina], function(err, results){
                     if(err===null || err===undefined){
-                        conn.query("Insert into salesforce.Case (Account, Maquina__c, Status, Origin, Subject) Values($1,$2,$3,$4)",
+                        conn.query("Insert into salesforce.Case (Account, Maquina__c, Status, Origin, Subject) Values($1,$2,$3,$4,$5)",
                                     [results.rows[0].account__c,results.rows[0].Id,req.body.status,req.body.origin,req.body.subject ],
                                     function(error, resultado){
                                         if(error===null || error===undefined){
