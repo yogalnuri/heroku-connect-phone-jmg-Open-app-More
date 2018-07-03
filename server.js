@@ -26,6 +26,7 @@ app.post('/update', function(req, res) {
                         conn.query("Insert into salesforce.Case (AccountId, Maquina_Averiada__c, Status, Origin, Subject) Values($1,$2,$3,$4,$5)",
                                     [results.rows[0].account__c, results.rows[0].Id, req.body.status, req.body.origin, req.body.subject ],
                                     function(error, resultado){
+                                        done();
                                         if(error===null || error===undefined){
                                             res.json(resultado);
                                         }else{
