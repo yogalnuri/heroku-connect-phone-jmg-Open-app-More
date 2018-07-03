@@ -16,12 +16,14 @@ app.post('/update', function(req, res) {
         handleError(res, "Invalid user input", "Must provide a Status.", 400);
     } if (!req.body.origin) {
         handleError(res, "Invalid user input", "Must provide an Origin.", 400);
+    } if (!req.body.subject) {
+        handleError(res, "Invalid user input", "Must provide an Subject.", 400);
     }else{
         pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
             // watch for any connect issues
             conn.query('SELECT id FROM salesforce.Account where Name=$1', [req.body.maquina], function(err, results){
                     if(err===null || err===undefined){
-                        res.json({"mesaage":results.rowCount});
+                        res.json({"mesaage":results});
                     }else{
                         handleError(res, "Error query", err.message, 400);
                     }
