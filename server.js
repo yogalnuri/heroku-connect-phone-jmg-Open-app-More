@@ -21,7 +21,7 @@ app.post('/update', function(req, res) {
     }else{
         pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
             // watch for any connect issues
-            conn.query('SELECT Id, Name FROM salesforce.Account where Name=$1', [req.body.maquina], function(err, results){
+            conn.query('select Account__c, Name from salesforce.Maquina__c where Name=$1', [req.body.maquina], function(err, results){
                     if(err===null || err===undefined){
                         res.json({"records":results, "origen":req.body.maquina})
                     }else{
