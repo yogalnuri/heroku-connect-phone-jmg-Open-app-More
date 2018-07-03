@@ -21,7 +21,7 @@ app.post('/update', function(req, res) {
             // watch for any connect issues
             conn.query('SELECT id FROM Account where Name=$1', [req.body.maquina], function(err, results){
                     if(err===null || err===undefined){
-                        res.json({"mesaage":results.rowCount);
+                        res.json({"mesaage":results.rowCount});
                     }else{
                         handleError(res, "Error query", err.message, 400);
                     }
