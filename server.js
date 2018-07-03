@@ -27,7 +27,7 @@ app.post('/update', function(req, res) {
                                     [results.rows[0].account__c, results.rows[0].Id, req.body.status, req.body.origin, req.body.subject ],
                                     function(error, resultado){
                                         if(error===null || error===undefined){
-                                            res.json()
+                                            res.json(resultado);
                                         }else{
                                              res.status(400).json({"error": error});
                                         }
