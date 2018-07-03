@@ -29,7 +29,7 @@ app.post('/update', function(req, res) {
                                         if(error===null || error===undefined){
                                             res.json()
                                         }else{
-                                             res.status(code || 500).json({"error": error});
+                                             res.status(400).json({"error": error});
                                         }
                                     });
                     }else{
