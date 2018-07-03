@@ -23,7 +23,7 @@ app.post('/update', function(req, res) {
             // watch for any connect issues
             conn.query('SELECT id FROM salesforce.Account where Name=$1', [req.body.maquina], function(err, results){
                     if(err===null || err===undefined){
-                        res.json({"records":results.fields[0]})
+                        res.json({"records":results.fields[0].id})
                     }else{
                         handleError(res, "Error query", err.message, 400);
                     }
