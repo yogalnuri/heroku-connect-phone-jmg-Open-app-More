@@ -22,22 +22,28 @@ app.post('/update', function(req, res) {
         pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
             // watch for any connect issues
             conn.query('select Account__c, Name, Id from salesforce.Maquina__c where Name=$1', [req.body.maquina], function(err, results){
-                    if(err===null || err===undefined){
-                        conn.query("Insert into salesforce.Case (AccountId, Maquina_Averiada__c, Status, Origin, Subject) Values($1,$2,$3,$4,$5)",
-                                    [results.rows[0].account__c, results.rows[0].Id, req.body.status, req.body.origin, req.body.subject ],
-                                    function(error, resultado){
-                                        done();
-                                        if(error===null || error===undefined){
-                                            res.json(resultado);
-                                        }else{
-                                             res.status(400).json({"error": error});
-                                        }
-                                    });
-                    }else{
-                        handleError(res, "Error query", err.message, 400);
-                    }
+                if(err===null || err===undefined){
+                    conn.query('select Max(External_Case_Id__c) from salesforce.Case', function(errorCase, resultsCase){
+                        res.status(400).json(resultsCase);
+                        if(errorCase===null || eerrorCaserr===undefined){
+                            conn.query("Insert into salesforce.Case (AccountId, Maquina_Averiada__c, Status, Origin, Subject) Values($1,$2,$3,$4,$5)",
+                                        [results.rows[0].account__c, results.rows[0].Id, req.body.status, req.body.origin, req.body.subject ],
+                                        function(error, resultado){
+                                            done();
+                                            if(error===null || error===undefined){
+                                                res.json(resultado);
+                                            }else{
+                                                res.status(400).json({"error": error});
+                                            }
+                                        });
+                        }else{
+                            handleError(res, "Error query", errorCase.message, 400);
+                        }
+                    });
+                }else{
+                    handleError(res, "Error query", error.message, 400);
                 }
-            );
+            });
         });
     }
 });
