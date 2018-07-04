@@ -25,7 +25,7 @@ app.post('/update', function(req, res) {
                 if(err===null || err===undefined){
                     conn.query('select External_Case_Id__c from salesforce.Case', function(errorCase, resultsCase){
                         res.status(400).json(resultsCase);
-                        if(errorCase===null || eerrorCaserr===undefined){
+                        if(errorCase===null || errorCase===undefined){
                             conn.query("Insert into salesforce.Case (AccountId, Maquina_Averiada__c, Status, Origin, Subject) Values($1,$2,$3,$4,$5)",
                                         [results.rows[0].account__c, results.rows[0].Id, req.body.status, req.body.origin, req.body.subject ],
                                         function(error, resultado){
