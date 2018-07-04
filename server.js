@@ -23,7 +23,7 @@ app.post('/update', function(req, res) {
             // watch for any connect issues
             conn.query('select Account__c, Name, Id from salesforce.Maquina__c where Name=$1', [req.body.maquina], function(err, results){
                 if(err===null || err===undefined){
-                    conn.query('select Max(External_Case_Id__c) from salesforce.Case', function(errorCase, resultsCase){
+                    conn.query('select Max(External_Case_Id__c) as External_Case_Id__c from salesforce.Case', function(errorCase, resultsCase){
                         res.status(400).json(resultsCase);
                         if(errorCase===null || errorCase===undefined){
                             conn.query("Insert into salesforce.Case (AccountId, Maquina_Averiada__c, Status, Origin, Subject) Values($1,$2,$3,$4,$5)",
