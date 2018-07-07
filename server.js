@@ -49,7 +49,7 @@ app.post('/update', function(req, res) {
     }
 });
 app.get('/update', function(req, res) {
-	console.log(req.url);
+	console.log(req);
 
     if (!req.body.maquina) {
         handleError(res, "Invalid user input", "Must provide a  machine name.", 400);
