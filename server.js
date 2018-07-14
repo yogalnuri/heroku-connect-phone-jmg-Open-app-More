@@ -10,6 +10,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 
 app.post('/update', function(req, res) {
+	console.log(JSON.stringify(req.body));
     if (!req.body.maquina) {
         handleError(res, "Invalid user input", "Must provide a  machine name.", 400);
     }else if (!req.body.status) {
