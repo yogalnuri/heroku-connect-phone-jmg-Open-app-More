@@ -22,7 +22,7 @@ app.post('/update', function(req, res) {
     }else{
         pg.connect(process.env.DATABASE_URL, function (err, conn, done) {
             // watch for any connect issues
-            conn.query('select Account__c, Name, Id from salesforce.Maquina__c where Name=$1', [req.body.maquina], function(err, results){
+            conn.query('select Account__c, Name, Id from salesforce.Maquina__c where Identificador__c=$1', [req.body.maquina], function(err, results){
                 if(err===null || err===undefined){
                     conn.query('select Max(External_Case_Id__c) as External_Case_Id__c from salesforce.Case', function(errorCase, resultsCase){
                         if(errorCase===null || errorCase===undefined){
